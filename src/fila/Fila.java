@@ -3,7 +3,7 @@ package fila;
 public class Fila implements IFila {
 
 	private static final int capacidade = 5;
-	private Object[] Fila; // Array que representa a fila
+	private Object[] fila; // Array que representa a fila
 	private final int tam; // capacidade total da fila
 	private int fim = -1; // final da fila
 
@@ -27,12 +27,12 @@ public class Fila implements IFila {
 		this(capacidade);
 	}
 
-	public Fila(int cap) throws FilaException {
+	public Fila(int cap) throws IllegalArgumentException {
 		if (cap > 0)
 			tam = cap;
 		else
-			throw new FilaException();
-		Fila = new Object[tam];
+			throw new IllegalArgumentException();
+		fila = new Object[tam];
 	}
 
 	public int tamanho() {
@@ -46,22 +46,28 @@ public class Fila implements IFila {
 	public boolean estaCheia() {
 		return (fim == tam) ? true : false;
 	}
+	
+	public Object getObject(int i) throws IllegalArgumentException{
+		if(i < 0 || i > fim)
+			throw new IllegalArgumentException();
+		return this.fila[i];
+	}
 
 	public void insereNaFila(Object obj) throws FilaCheiaException {
 		if(fim + 1 >= tam)
 			throw new FilaCheiaException();
 		
 		fim++;
-		Fila[fim] = obj;
+		fila[fim] = obj;
 	}
 
 	public Object removeDaFila() throws FilaVaziaException {
 		if(fim == -1)
 			throw new FilaVaziaException();
 		
-		Object item = Fila[0];
+		Object item = fila[0];
 		for (int k = 1; k < fim; k++)
-			Fila[k - 1] = Fila[k];
+			fila[k - 1] = fila[k];
 		
 		fim --;
 		return item;
@@ -69,7 +75,7 @@ public class Fila implements IFila {
 
 	@SuppressWarnings("unused")
 	public void limpaFila() {
-		for (Object aux : Fila) {
+		for (Object aux : fila) {
 			aux = null;
 		}
 		fim = -1;

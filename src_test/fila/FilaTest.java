@@ -21,7 +21,7 @@ public class FilaTest {
 		assertTrue(fila.getTam() == 10);
 	}
 
-	@Test(expected = FilaException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConst3() {
 		fila = new Fila(-10);
 	}
@@ -81,6 +81,40 @@ public class FilaTest {
 
 		fila.limpaFila();
 		assertTrue(fila.getFim() == -1);
+	}
+	
+	@Test
+	public void testInsereFinal() {
+		fila = new Fila();
+		fila.insereNaFila("1");
+		fila.insereNaFila("2");
+		fila.insereNaFila("3");
+		String comparacao = "valor final da lista";
+		
+		fila.insereNaFila(comparacao);
+		
+		assertTrue(fila.getObject(3).equals(comparacao));
+	}
+	
+	@Test
+	public void testRemoveInicio() {
+		fila = new Fila();
+		fila.insereNaFila("1");
+		String comparacao = "valor final da lista";
+		fila.insereNaFila(comparacao);
+		fila.insereNaFila("3");
+		fila.insereNaFila("4");
+		
+		fila.removeDaFila();
+		
+		assertTrue(fila.getObject(0).equals(comparacao));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testExcessao() {
+		fila = new Fila();
+		
+		fila.getObject(3).equals("");
 	}
 
 }

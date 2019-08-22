@@ -3,14 +3,17 @@ package param.temperature;
 
 public class ConversorTemperatura{  
   
-    public ConversorTemperatura(){ }  
+//    public ConversorTemperatura(){ }  
   
-    public Temperatura converte(Temperatura temp) throws TempException{  
-       if(temp instanceof Celsius) return converteToFahrenheit(temp);  
-       else return converteToCelsius(temp);  
+    public static Temperatura converte(Temperatura temp) throws TempException{  
+       if(temp instanceof Celsius) 
+    	   return converteToFahrenheit(temp);
+       if(temp instanceof Fahrenheit)
+    	   return converteToCelsius(temp);
+       throw new TempException("erro");
     }  
   
-    private Temperatura converteToFahrenheit(Temperatura celsius) throws TempException{  
+    private static Temperatura converteToFahrenheit(Temperatura celsius) throws TempException{  
        Fahrenheit f = new Fahrenheit();  
        double cvalue = celsius.getValue();   
        double fvalue = 1.8*cvalue+f.getFREEZE(); // formula 1  
@@ -18,10 +21,11 @@ public class ConversorTemperatura{
        return f;  
     }  
   
-    private Temperatura converteToCelsius(Temperatura fahrenheit) throws TempException{  
+    private static Temperatura converteToCelsius(Temperatura fahrenheit) throws TempException{  
        Celsius c = new Celsius();  
        double fvalue = fahrenheit.getValue();   
-       double cvalue = (5/9)*fvalue-5*fahrenheit.getFREEZE();// formula 2 ?!  
+       //double cvalue = (5/9)*fvalue-5*fahrenheit.getFREEZE();// formula 2 ?!
+       double cvalue = ((fvalue - fahrenheit.getFREEZE())/1.8);
        c.setValue(cvalue);  
        return c;  
     }  
