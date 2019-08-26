@@ -2,10 +2,18 @@ package Imposto;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 
 import param.CalculoImpostoRenda;
 
+@RunWith(Enclosed.class)
 public class ImpostoEquivalenciaTest {
 
 	// classe de equivalencia ao intervalo 0~1200 (0% de imposto)
@@ -55,5 +63,26 @@ public class ImpostoEquivalenciaTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testError0() {
 		CalculoImpostoRenda.calculaImposto(0);
+	}
+	
+	@RunWith(Parameterized.class)
+	public static class ImpostoTest {
+
+		@Parameter(0)
+		public double entrada;
+
+		@Parameter(1)
+		public double esperado;
+
+		@Test
+		public void test() {
+			assertEquals(esperado, CalculoImpostoRenda.calculaImposto(entrada), 0.1);
+		}
+
+		@Parameters
+		public static Iterable<Object[]> data() {
+			return Arrays.asList(new Object[][] { { 10, 10 }, { 1200, 1200 }, { 1500, 1650 }, { 4000, 4400 },
+					{ 5555, 6388.25 }, { 9999, 11498.85 }, { 10001, 12001.2 } });
+		}
 	}
 }
