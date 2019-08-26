@@ -2,6 +2,7 @@ package param;
 
 public class CalculoImpostoRenda {
 
+	public CalculoImpostoRenda() {}
 	/**
 	 * Este método calcula o imposto a ser pago baseado no valor de uma dada compra.
 	 * 
@@ -20,13 +21,13 @@ public class CalculoImpostoRenda {
 		double impostotot = 0;
 		String porcento = "0%";
 
-		if(valor > 0 && valor <= 1200) {
+		if(valor <= 1200) {
 			imposto = 0;
 			porcento = "0%";
-		}if (valor >= 1201 && valor <= 5000) {
+		}if (valor > 1200 && valor <= 5000) {
 			imposto = 0.1 * valor;
 			porcento = "10%";
-		} else if (valor >= 5001 && valor <= 10000) {
+		} else if (valor > 5000 && valor <= 10000) {
 			imposto = 0.15 * valor;
 			porcento = "15%";
 		} else if(valor > 10000){
@@ -38,9 +39,5 @@ public class CalculoImpostoRenda {
 		// Saída de dados
 		System.out.println("Valor em Dinheiro: R$" + valor + " + " + porcento + " de imposto. Total:" + impostotot);
 		return impostotot;
-	}
-
-	public static void main(String[] args) {
-		calculaImposto(200.5);
 	}
 }

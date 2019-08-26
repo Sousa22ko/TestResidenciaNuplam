@@ -21,19 +21,26 @@ public class ImpostoTest {
 	@Parameter(1)
 	public double esperado;
 
+	@Test
+	public void test() {
+		assertEquals(esperado, CalculoImpostoRenda.calculaImposto(entrada), 0.1);
+	}
+
 	@Parameters
 	public static Iterable<Object[]> data() {
 		return Arrays.asList(new Object[][] { { 10, 10 }, { 1200, 1200 }, { 1500, 1650 }, { 4000, 4400 },
 				{ 5555, 6388.25 }, { 9999, 11498.85 }, { 10001, 12001.2 } });
 	}
 
-	@Test
-	public void test() {
-		assertEquals(esperado, CalculoImpostoRenda.calculaImposto(entrada), 0.1);
-	}
-
+	// Classe de equivalencia inválida
 	@Test(expected = IllegalArgumentException.class)
 	public void testError() {
 		CalculoImpostoRenda.calculaImposto(-1);
+	}
+
+	// Classe de equivalencia inválida
+	@Test(expected = IllegalArgumentException.class)
+	public void testError0() {
+		CalculoImpostoRenda.calculaImposto(0);
 	}
 }
