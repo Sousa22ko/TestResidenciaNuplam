@@ -34,10 +34,9 @@ public class CalculoImpostoRenda {
 			imposto = 0.2 * valor;
 			porcento = "20%";
 		}
-		impostotot = valor + imposto;
 
 		// Saída de dados
 		System.out.println("Valor em Dinheiro: R$" + valor + " + " + porcento + " de imposto. Total:" + impostotot);
-		return impostotot;
+		return imposto;
 	}
 }
